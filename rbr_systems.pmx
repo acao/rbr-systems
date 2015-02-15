@@ -1,0 +1,30 @@
+---
+name: RBR Systems
+description: "A set of systems for Rustbelt Riders Composting Co-op:\r\n\r\n- ODOO
+  Instance\r\n- Daemonized infastructure for an SMS transactional webapp (forthcoming)\r\n-
+  Postgres Instance\r\n- Possibly email/dav/chat if necessary"
+keywords: ''
+type: odoo
+documentation: ''
+images:
+- name: postgres
+  source: postgres:latest
+  category: data
+  type: Default
+  environment:
+  - variable: POSTGRES_USER
+    value: odoo
+  - variable: POSTGRES_PASSWORD
+    value: odoo
+- name: odoo
+  source: odoo:8
+  category: Application
+  type: Default
+  expose:
+  - '8069'
+  ports:
+  - container_port: '8069'
+    proto: TCP
+  links:
+  - service: postgres
+    alias: db
